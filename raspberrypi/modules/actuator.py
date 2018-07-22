@@ -33,20 +33,21 @@ def on_message(client, userdata, msg):
     if msg.payload == 'Motion Detected':
         print("Motion Detected: Disbursing Drone")
         #INTERLOCK DOOR UNLOCKS
-        p.start(11.5)
+        DOOR.start(11.5)
         time.sleep(1)
-        p.stop()
+        DOOR.stop()
         GPIO.cleanup()
         
         #TURN DRONE ON
-        publish.single("drone", "Start Drone", hostname="test.mosquitto.org")
+        #publish.single("drone", "Start Drone", hostname="test.mosquitto.org")
+        client.publish('drone', 'Start Drone');
         #WAIT 4
         time.sleep(4)
         
         #LATCH
-        p.start(11.5)
+        MOUNT.start(11.5)
         time.sleep(1)
-        p.stop()
+        MOUNT.stop()
         
     elif ((msg.payload == 'Reset Mount') & (msg.topic == 'dropbox')):
         print("Message Received" + msg.topic+" "+str(msg.payload))
@@ -74,3 +75,7 @@ client.connect("test.mosquitto.org", 1883, 60)
 # reconnecting. Check the documentation at
 # https://github.com/eclipse/paho.mqtt.python
 client.loop_forever()
+
+KeyboardInterrupt:
+    print("Quit")
+    GPIO.cleanup()
