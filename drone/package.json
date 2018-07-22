@@ -1,0 +1,10 @@
+{
+    "name": "drone",
+    "version": "0.0.1",
+    "description": "Makes the drone takeoff and land.",
+    "preferGlobal": "true",
+    "bin": { "drone": "drone.js" },
+    "author": "Ashley Roberson",
+    "engines": { "node": "*" }
+}
+
