@@ -49,13 +49,16 @@ def on_message(client, userdata, msg):
         time.sleep(1)
         MOUNT.stop()
         
-    elif ((msg.payload == 'Reset Mount') & (msg.topic == 'dropbox')):
-        print("Message Received" + msg.topic+" "+str(msg.payload))
+    elif (msg.payload == 'Reset Mount'):
+        print("Message Received " + msg.topic+" "+str(msg.payload))
         MOUNT.start(7)
         time.sleep(1)
         MOUNT.stop()
   
-    elif ((msg.payload == 'Reset Door') & (msg.topic == 'dropbox')):
+    elif (msg.payload == 'Reset Door'):
+        print("Message Received " + msg.topic+" "+str(msg.payload))
+         
+           
         DOOR.start(7)
         time.sleep(1)
         DOOR.stop()
@@ -76,6 +79,3 @@ client.connect("test.mosquitto.org", 1883, 60)
 # https://github.com/eclipse/paho.mqtt.python
 client.loop_forever()
 
-KeyboardInterrupt:
-    print("Quit")
-    GPIO.cleanup()
